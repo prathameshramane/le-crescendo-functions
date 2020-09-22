@@ -1,4 +1,5 @@
 const functions = require("firebase-functions");
+const { uploadImage } = require("./handlers/imageHandler");
 const app = require("express")();
 
 const {
@@ -10,9 +11,10 @@ const {
 
 //Review Routes
 app.get("/reviews", getAllReview);
+app.post("/review", createReview);
 app.put("/review/:id", updateReview);
-app.post("/create/review", createReview);
-app.delete("/delete/:id", deleteReview);
+app.delete("/review/:id", deleteReview);
+app.post("/review/:id/uploadimg", uploadImage);
 
 //Firebase functions
 exports.api = functions.region("asia-south1").https.onRequest(app);

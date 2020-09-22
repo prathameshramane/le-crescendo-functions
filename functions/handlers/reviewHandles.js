@@ -1,5 +1,5 @@
 const { db } = require("../utils/firebase");
-const { validateReview } = require("../utils/validators");
+const { validateReview, reducedReviewBody } = require("../utils/validators");
 
 exports.createReview = (req, res) => {
   const error = validateReview(req.body);
@@ -12,7 +12,7 @@ exports.createReview = (req, res) => {
     body: req.body.body,
     studentName: req.body.studentName,
     ratings: req.body.ratings,
-    imageUrl: req.body.imageUrl,
+    imageUrl: "https://firebasestorage.googleapis.com/v0/b/la-crescendo-academy.appspot.com/o/no-image.jpg?alt=media",
     featured: req.body.featured ? true : false,
   };
 
@@ -44,8 +44,10 @@ exports.deleteReview = (req, res) => {
 };
 
 exports.updateReview = (req, res) => {
+  const reducedReview = reducedReviewBody(req.body);
+
   db.doc(`/reviews/${req.params.id}`)
-    .delete()
+    .update(reducedReview)
     .then((data) => {
       return res.json({ message: "Updated successfully", success: true });
     })
