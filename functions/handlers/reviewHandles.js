@@ -35,7 +35,7 @@ exports.deleteReview = (req, res) => {
   db.doc(`/reviews/${req.params.id}`)
     .delete()
     .then((data) => {
-      return res.json({ message: "deleted success", success: true });
+      return res.json({ message: "Deleted successfully", success: true });
     })
     .catch((err) => {
       console.log(err);
@@ -47,7 +47,7 @@ exports.updateReview = (req, res) => {
   db.doc(`/reviews/${req.params.id}`)
     .delete()
     .then((data) => {
-      return res.json({ message: "deleted success", success: true });
+      return res.json({ message: "Updated successfully", success: true });
     })
     .catch((err) => {
       console.log(err);
