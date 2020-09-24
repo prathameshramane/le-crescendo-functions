@@ -1,17 +1,18 @@
+const { credential } = require("firebase-admin");
+
 const isEmpty = (string) => {
-  if (string != undefined) {
-    if (string.toString().trim()) return true;
-    else return false;
-  } else return false;
+  if (string !== undefined) {
+    if (string.toString().trim()) return false;
+    else return true;
+  } else return true;
 };
 
 exports.validateReview = (review) => {
   let error = {};
 
-  if (!isEmpty(review.body)) error.body = "Review body required";
-  if (!isEmpty(review.studentName)) error.studentName = "Student name required";
-  if (!isEmpty(review.ratings))
-    error.ratings = "Rating value required";
+  if (isEmpty(review.body)) error.body = "Review body required";
+  if (isEmpty(review.studentName)) error.studentName = "Student name required";
+  if (isEmpty(review.ratings)) error.ratings = "Rating value required";
 
   if (Object.keys(error).length !== 0) error.flag = true;
   else error.flag = false;
@@ -27,4 +28,17 @@ exports.reducedReviewBody = (review) => {
   if (review.ratings) reducedBody.ratings = review.ratings;
 
   return reducedBody;
+};
+
+exports.validateLogin = (credential) => {
+  let errors = {};
+
+  if (isEmpty(credential.email)) errors.email = "Admin email required";
+  if (isEmpty(credential.password))
+    errors.password = "Admin password required";
+
+  if (Object.keys(errors).length !== 0) errors.flag = true;
+  else errors.flag = false;
+
+  return errors;
 };
