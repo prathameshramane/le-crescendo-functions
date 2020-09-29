@@ -14,6 +14,7 @@ exports.createReview = (req, res) => {
     ratings: req.body.ratings,
     imageUrl: "https://firebasestorage.googleapis.com/v0/b/la-crescendo-academy.appspot.com/o/no-image.jpg?alt=media",
     featured: req.body.featured ? true : false,
+    createdAt:new Date().toISOString()
   };
 
   db.collection("reviews")
@@ -58,7 +59,7 @@ exports.updateReview = (req, res) => {
 };
 
 exports.getAllReview = (req, res, next) => {
-  db.collection("reviews")
+  db.collection("reviews").orderBy('createdAt','desc')
     .get()
     .then((data) => {
       let reviews = [];

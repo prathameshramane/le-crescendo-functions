@@ -1,6 +1,6 @@
 const { db, admin, firebaseConfig } = require("../utils/firebase");
 
-exports.uploadImage = (req, res, next) => {
+exports.uploadReviewImage = (req, res, next) => {
   const Busboy = require("busboy");
   const fs = require("fs");
   const os = require("os");

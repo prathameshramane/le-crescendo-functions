@@ -42,3 +42,25 @@ exports.validateLogin = (credential) => {
 
   return errors;
 };
+
+exports.validateAchievement = (achievement) => {
+  let error = {};
+
+  if (isEmpty(achievement.body)) error.body = "Review body required";
+  if (isEmpty(achievement.studentName)) error.studentName = "Student name required";
+
+  if (Object.keys(error).length !== 0) error.flag = true;
+  else error.flag = false;
+
+  return error;
+};
+
+exports.reducedAchievementBody = (achievement) => {
+  let reducedBody = {};
+
+  if (achievement.body) reducedBody.body = achievement.body;
+  if (achievement.studentName) reducedBody.studentName = achievement.studentName;
+  if (achievement.designation) reducedBody.designation = achievement.designation;
+
+  return reducedBody;
+};
